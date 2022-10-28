@@ -6,7 +6,7 @@ test('Generate a Bitcoin Wallet', () => {
 
    const mnemonic = generateMnemonic(128);
    const wallet = HDWallet.fromMnemonic(mnemonic);
-   const {address} = wallet.getAccount("BTC", "bitcoin")
+   const {address} = wallet.getAccount("bitcoin")
 
    expect(address.startsWith("1")).toBe(true);
    expect(address.length).toBe(34);
@@ -28,7 +28,7 @@ test('Generate a Ethereum Wallet', () => {
    const wallet = HDWallet.fromMnemonic(mnemonic);
 
    const path = "m/44'/60'/0'/0/0";
-   const {address} = wallet.getAccount("ETH", "bitcoin", {derivationPath: path});
+   const {address} = wallet.getAccount("ethereum", {derivationPath: path});
 
    expect(address.startsWith("0x")).toBe(true);
    expect(address.length).toBe(42);
@@ -45,7 +45,7 @@ test('Generate a Tron Wallet', () => {
    const mnemonic = generateMnemonic(256);
    const wallet = HDWallet.fromMnemonic(mnemonic);
 
-   const account = wallet.getAccount("TRX", "bitcoin", {index: 20});
+   const account = wallet.getAccount("tron", {index: 20});
 
    expect(account.address.startsWith("T")).toBe(true);
    expect(account.address.length).toBe(34);

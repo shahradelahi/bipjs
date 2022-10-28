@@ -3,34 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const ethUtil = require("ethereumjs-util");
 const ethereumjs_util_1 = require("ethereumjs-util");
 const bitcoin = require("bitcoinjs-lib");
-const coins_1 = require("./coins");
+const networks_1 = require("./networks");
 const utils_1 = require("./utils");
 const ethers_1 = require("ethers");
 const buffer = require("buffer");
-function isEthereumNetwork(symbol) {
-    return (symbol === 'ETH' ||
-        symbol === 'ETC' ||
-        symbol === 'EWT' ||
-        symbol === 'PIRL' ||
-        symbol === 'MIX' ||
-        symbol === 'MOAC' ||
-        symbol === 'MUSIC' ||
-        symbol === 'POA' ||
-        symbol === 'EXP' ||
-        symbol === 'CLO' ||
-        symbol === 'DXN' ||
-        symbol === 'ELLA' ||
-        symbol === 'ESN' ||
-        symbol === 'VET' ||
-        symbol === 'ERE' ||
-        symbol === 'BSC' ||
-        symbol === 'HECO' ||
-        symbol === 'OKEX' ||
-        symbol === 'FUSE' ||
-        symbol === 'RSK' ||
-        symbol === 'TOMO' ||
-        symbol === 'WAN');
-}
 class HDWallet {
     constructor(ECNode) {
         this._ecnode = ECNode;
@@ -61,7 +37,7 @@ class HDWallet {
     getECNode(derivationPath) {
         return derivationPath ? this._ecnode.derivePath(derivationPath) : this._ecnode;
     }
-    getAccount(coinSymbol, networkSlug, options) {
+    getAccount(networkSlug, options) {
         const defaultOptions = {
             purpose: 44,
             index: 0,
@@ -69,9 +45,9 @@ class HDWallet {
             useHardenedAddresses: false,
         };
         const useOptions = Object.assign(Object.assign({}, defaultOptions), (options ? options : {}));
-        const coinInfo = coins_1.default.getCoinInfo(coinSymbol, networkSlug);
-        if (!coinInfo) {
-            throw new Error(`Coin ${coinSymbol} not found`);
+        const networkInfo = networks_1.default.getNetworkInfo(networkSlug);
+        if (!networkInfo) {
+            throw new Error(`Network ${networkSlug} is not supported`);
         }
         const path = (options === null || options === void 0 ? void 0 : options.derivationPath) ||
             (0, utils_1.getDerivationPath)({
@@ -79,7 +55,7 @@ class HDWallet {
                 purpose: useOptions.purpose,
                 account: useOptions.account,
                 addressIndex: useOptions.index,
-                coinType: coinInfo.coinType,
+                coinType: networkInfo.coinType,
             });
         let keyPair = this.getECNode().derivePath(path);
         if (!keyPair.privateKey) {
@@ -93,14 +69,14 @@ class HDWallet {
             address: '',
             path: path,
         };
-        if (isEthereumNetwork(coinInfo.symbol)) {
+        if (networkInfo.slug === 'ethereum') {
             const ethPubkey = ethers_1.ethers.utils.computePublicKey(keyPair.publicKey, true);
             const addressBuffer = buffer.Buffer.from(ethers_1.ethers.utils.computeAddress(ethPubkey));
             const hexAddress = addressBuffer.toString();
             const checksumAddress = ethers_1.ethers.utils.getAddress(hexAddress);
             return Object.assign(Object.assign({}, prebuiltAccount), { address: ethUtil.addHexPrefix(checksumAddress) });
         }
-        if (coinInfo.symbol === 'TRX') {
+        if (networkInfo.slug === 'tron') {
             const ethPubkey = ethers_1.ethers.utils.computePublicKey(keyPair.publicKey, true);
             const ethAddress = ethers_1.ethers.utils.computeAddress(ethPubkey);
             const addressBuffer = buffer.Buffer.from(ethAddress.slice(2), 'hex');
@@ -109,13 +85,9 @@ class HDWallet {
         /** Bitcoin and other similar coins */
         const Payment = {
             pubkey: publicKeyBuffer,
-            network: coinInfo.network,
+            network: networkInfo.network,
         };
-        const { address } = bitcoin.payments.p2pkh(Payment);
-        if (address) {
-            return Object.assign(Object.assign({}, prebuiltAccount), { address });
-        }
-        throw new Error(`Coin ${coinSymbol} not supported`);
+        return Object.assign(Object.assign({}, prebuiltAccount), { address: bitcoin.payments.p2pkh(Payment).address || '' });
     }
 }
 exports.default = HDWallet;

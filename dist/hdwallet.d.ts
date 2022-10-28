@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import { CoinSymbol, NetworkSlug } from './coins';
+import { Slug } from './networks';
 import { ethers } from 'ethers';
 import { Buffer } from 'buffer';
 export interface IAccountOpts {
@@ -27,5 +27,5 @@ export default class HDWallet {
     getMnemonic(): string | undefined;
     private derivePath;
     getECNode(derivationPath?: string): ethers.utils.HDNode;
-    getAccount(coinSymbol: CoinSymbol, networkSlug: NetworkSlug, options?: IAccountOpts): Account;
+    getAccount(networkSlug: Slug, options?: IAccountOpts): Account;
 }

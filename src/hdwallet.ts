@@ -1,38 +1,11 @@
 import * as ethUtil from 'ethereumjs-util';
 import { bufferToHex } from 'ethereumjs-util';
 import * as bitcoin from 'bitcoinjs-lib';
-import Coins, { CoinSymbol, NetworkSlug } from './coins';
+import Networks, { NetworkSlug } from './networks';
 import { getDerivationPath, stripHexPrefix } from './utils';
 import { ethers } from 'ethers';
 import * as buffer from 'buffer';
 import { Buffer } from 'buffer';
-
-function isEthereumNetwork(symbol: string): boolean {
-  return (
-    symbol === 'ETH' ||
-    symbol === 'ETC' ||
-    symbol === 'EWT' ||
-    symbol === 'PIRL' ||
-    symbol === 'MIX' ||
-    symbol === 'MOAC' ||
-    symbol === 'MUSIC' ||
-    symbol === 'POA' ||
-    symbol === 'EXP' ||
-    symbol === 'CLO' ||
-    symbol === 'DXN' ||
-    symbol === 'ELLA' ||
-    symbol === 'ESN' ||
-    symbol === 'VET' ||
-    symbol === 'ERE' ||
-    symbol === 'BSC' ||
-    symbol === 'HECO' ||
-    symbol === 'OKEX' ||
-    symbol === 'FUSE' ||
-    symbol === 'RSK' ||
-    symbol === 'TOMO' ||
-    symbol === 'WAN'
-  );
-}
 
 export interface IAccountOpts {
   purpose?: number;
@@ -41,7 +14,6 @@ export interface IAccountOpts {
   useHardenedAddresses?: boolean;
   derivationPath?: string;
 }
-
 export interface Account {
   readonly privateKey: string;
   readonly publicKey: string;
@@ -90,7 +62,7 @@ export default class HDWallet {
     return derivationPath ? this._ecnode.derivePath(derivationPath) : this._ecnode;
   }
 
-  public getAccount(coinSymbol: CoinSymbol, networkSlug: NetworkSlug, options?: IAccountOpts): Account {
+  public getAccount(networkSlug: NetworkSlug, options?: IAccountOpts): Account {
     const defaultOptions = {
       purpose: 44,
       index: 0,
@@ -100,9 +72,9 @@ export default class HDWallet {
 
     const useOptions = { ...defaultOptions, ...(options ? options : {}) };
 
-    const coinInfo = Coins.getCoinInfo(coinSymbol, networkSlug);
-    if (!coinInfo) {
-      throw new Error(`Coin ${coinSymbol} not found`);
+    const networkInfo = Networks.getNetworkInfo(networkSlug);
+    if (!networkInfo) {
+      throw new Error(`Network ${networkSlug} is not supported`);
     }
 
     const path =
@@ -112,7 +84,7 @@ export default class HDWallet {
         purpose: useOptions.purpose,
         account: useOptions.account,
         addressIndex: useOptions.index,
-        coinType: coinInfo.coinType,
+        coinType: networkInfo.coinType,
       });
 
     let keyPair = this.getECNode().derivePath(path);
@@ -130,7 +102,7 @@ export default class HDWallet {
       path: path,
     };
 
-    if (isEthereumNetwork(coinInfo.symbol)) {
+    if (networkInfo.slug === 'ethereum') {
       const ethPubkey = ethers.utils.computePublicKey(keyPair.publicKey, true);
       const addressBuffer = buffer.Buffer.from(ethers.utils.computeAddress(ethPubkey));
       const hexAddress = addressBuffer.toString();
@@ -138,7 +110,7 @@ export default class HDWallet {
       return { ...prebuiltAccount, address: ethUtil.addHexPrefix(checksumAddress) };
     }
 
-    if (coinInfo.symbol === 'TRX') {
+    if (networkInfo.slug === 'tron') {
       const ethPubkey = ethers.utils.computePublicKey(keyPair.publicKey, true);
       const ethAddress = ethers.utils.computeAddress(ethPubkey);
       const addressBuffer = buffer.Buffer.from(ethAddress.slice(2), 'hex');
@@ -149,15 +121,9 @@ export default class HDWallet {
 
     const Payment: bitcoin.payments.Payment = {
       pubkey: publicKeyBuffer,
-      network: coinInfo.network as any,
+      network: networkInfo.network as any,
     };
 
-    const { address } = bitcoin.payments.p2pkh(Payment);
-
-    if (address) {
-      return { ...prebuiltAccount, address };
-    }
-
-    throw new Error(`Coin ${coinSymbol} not supported`);
+    return { ...prebuiltAccount, address: bitcoin.payments.p2pkh(Payment).address || '' };
   }
 }

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = {
+const _extensions = {
     shadow: {
         messagePrefix: 'unused',
         bip32: {
@@ -1753,3 +1753,979 @@ exports.default = {
         wif: 0xb0,
     },
 };
+const _networks = [
+    {
+        slug: 'asiacoin',
+        network: _extensions.asiacoin,
+        coinType: 51,
+    },
+    {
+        slug: 'adcoin',
+        network: _extensions.adcoin,
+        coinType: 161,
+    },
+    {
+        slug: 'argoneum',
+        network: _extensions.argoneum,
+        coinType: 421,
+    },
+    {
+        slug: 'aryacoin',
+        network: _extensions.aryacoin,
+        coinType: 357,
+    },
+    {
+        slug: 'cosmos',
+        network: _extensions.bitcoin,
+        coinType: 118,
+    },
+    {
+        slug: 'auroracoin',
+        network: _extensions.auroracoin,
+        coinType: 85,
+    },
+    {
+        slug: 'axe',
+        network: _extensions.axe,
+        coinType: 4242,
+    },
+    {
+        slug: 'anon',
+        network: _extensions.anon,
+        coinType: 220,
+    },
+    {
+        slug: 'bolivarcoin',
+        network: _extensions.bolivarcoin,
+        coinType: 278,
+    },
+    {
+        slug: 'atom',
+        network: _extensions.atom,
+        coinType: 185,
+    },
+    {
+        slug: 'beetlecoin',
+        network: _extensions.beetlecoin,
+        coinType: 800,
+    },
+    {
+        slug: 'belacoin',
+        network: _extensions.belacoin,
+        coinType: 73,
+    },
+    {
+        slug: 'blackcoin',
+        network: _extensions.blackcoin,
+        coinType: 10,
+    },
+    {
+        slug: 'blocknode',
+        network: _extensions.blocknode,
+        coinType: 2941,
+    },
+    {
+        slug: 'blocknode_testnet',
+        network: _extensions.blocknode_testnet,
+        coinType: 1,
+    },
+    {
+        slug: 'britcoin',
+        network: _extensions.britcoin,
+        coinType: 70,
+    },
+    {
+        slug: 'bitsend',
+        network: _extensions.bitsend,
+        coinType: 91,
+    },
+    {
+        slug: 'blockstamp',
+        network: _extensions.blockstamp,
+        coinType: 254,
+    },
+    {
+        slug: 'bata',
+        network: _extensions.bata,
+        coinType: 89,
+    },
+    {
+        slug: 'bitcoin',
+        network: _extensions.bitcoin,
+        coinType: 0,
+    },
+    {
+        slug: 'regtest',
+        network: _extensions.regtest,
+        coinType: 1,
+    },
+    {
+        slug: 'bitcoin_testnet',
+        network: _extensions.bitcoin_testnet,
+        coinType: 1,
+    },
+    {
+        slug: 'bitcoingreen',
+        network: _extensions.bitcoingreen,
+        coinType: 222,
+    },
+    {
+        slug: 'bitcoinprivate',
+        network: _extensions.bitcoinprivate,
+        coinType: 183,
+    },
+    {
+        slug: 'bitcoinprivatetestnet',
+        network: _extensions.bitcoinprivatetestnet,
+        coinType: 1,
+    },
+    {
+        slug: 'bitcoinsv',
+        network: _extensions.bitcoinsv,
+        coinType: 236,
+    },
+    {
+        slug: 'bitcoinz',
+        network: _extensions.bitcoinz,
+        coinType: 177,
+    },
+    {
+        slug: 'bitcloud',
+        network: _extensions.bitcloud,
+        coinType: 218,
+    },
+    {
+        slug: 'bgold',
+        network: _extensions.bgold,
+        coinType: 156,
+    },
+    {
+        slug: 'bitcore',
+        network: _extensions.bitcore,
+        coinType: 160,
+    },
+    {
+        slug: 'cannacoin',
+        network: _extensions.cannacoin,
+        coinType: 19,
+    },
+    {
+        slug: 'cannacoin_testnet',
+        network: _extensions.cannacoin,
+        coinType: 111,
+    },
+    {
+        slug: 'canadaecoin',
+        network: _extensions.canadaecoin,
+        coinType: 34,
+    },
+    {
+        slug: 'clam',
+        network: _extensions.clam,
+        coinType: 23,
+    },
+    {
+        slug: 'callisto',
+        network: _extensions.bitcoin,
+        coinType: 820,
+    },
+    {
+        slug: 'clubcoin',
+        network: _extensions.clubcoin,
+        coinType: 79,
+    },
+    {
+        slug: 'compcoin',
+        network: _extensions.compcoin,
+        coinType: 71,
+    },
+    {
+        slug: 'cpuchain',
+        network: _extensions.cpuchain,
+        coinType: 363,
+    },
+    {
+        slug: 'crave',
+        network: _extensions.crave,
+        coinType: 186,
+    },
+    {
+        slug: 'cranepay',
+        network: _extensions.cranepay,
+        coinType: 2304,
+    },
+    {
+        slug: 'crown',
+        network: _extensions.crown,
+        coinType: 72,
+    },
+    {
+        slug: 'casinocoin',
+        network: _extensions.bitcoin,
+        coinType: 359,
+    },
+    {
+        slug: 'dash',
+        network: _extensions.dash,
+        coinType: 5,
+    },
+    {
+        slug: 'dashtn',
+        network: _extensions.dashtn,
+        coinType: 1,
+    },
+    {
+        slug: 'defcoin',
+        network: _extensions.defcoin,
+        coinType: 1337,
+    },
+    {
+        slug: 'digibyte',
+        network: _extensions.digibyte,
+        coinType: 20,
+    },
+    {
+        slug: 'digitalcoin',
+        network: _extensions.digitalcoin,
+        coinType: 18,
+    },
+    {
+        slug: 'divi',
+        network: _extensions.divi,
+        coinType: 301,
+    },
+    {
+        slug: 'divitestnet',
+        network: _extensions.divitestnet,
+        coinType: 1,
+    },
+    {
+        slug: 'diamond',
+        network: _extensions.diamond,
+        coinType: 152,
+    },
+    {
+        slug: 'denarius',
+        network: _extensions.denarius,
+        coinType: 116,
+    },
+    {
+        slug: 'dogecoin',
+        network: _extensions.dogecoin,
+        coinType: 3,
+    },
+    {
+        slug: 'dogecointestnet',
+        network: _extensions.dogecointestnet,
+        coinType: 1,
+    },
+    {
+        slug: 'dexon',
+        network: _extensions.bitcoin,
+        coinType: 237,
+    },
+    {
+        slug: 'ecoin',
+        network: _extensions.ecoin,
+        coinType: 115,
+    },
+    {
+        slug: 'edrcoin',
+        network: _extensions.edrcoin,
+        coinType: 56,
+    },
+    {
+        slug: 'egulden',
+        network: _extensions.egulden,
+        coinType: 78,
+    },
+    {
+        slug: 'elastos',
+        network: _extensions.elastos,
+        coinType: 2305,
+    },
+    {
+        slug: 'ellaism',
+        network: _extensions.bitcoin,
+        coinType: 163,
+    },
+    {
+        slug: 'einsteinium',
+        network: _extensions.einsteinium,
+        coinType: 41,
+    },
+    {
+        slug: 'europecoin',
+        network: _extensions.europecoin,
+        coinType: 151,
+    },
+    {
+        slug: 'ether-core',
+        network: _extensions.bitcoin,
+        coinType: 466,
+    },
+    {
+        slug: 'ethersocial',
+        network: _extensions.bitcoin,
+        coinType: 31102,
+    },
+    {
+        slug: 'ethereum-classic',
+        network: _extensions.bitcoin,
+        coinType: 61,
+    },
+    {
+        slug: 'energyweb',
+        network: _extensions.bitcoin,
+        coinType: 246,
+    },
+    {
+        slug: 'exclusivecoin',
+        network: _extensions.exclusivecoin,
+        coinType: 190,
+    },
+    {
+        slug: 'exchangecoin',
+        network: _extensions.exchangecoin,
+        coinType: 0,
+    },
+    {
+        slug: 'expanse',
+        network: _extensions.bitcoin,
+        coinType: 40,
+    },
+    {
+        slug: 'fio',
+        network: _extensions.bitcoin,
+        coinType: 235,
+    },
+    {
+        slug: 'firo',
+        network: _extensions.firo,
+        coinType: 136,
+    },
+    {
+        slug: 'fix',
+        network: _extensions.fix,
+        coinType: 336,
+    },
+    {
+        slug: 'fixtestnet',
+        network: _extensions.fixtestnet,
+        coinType: 1,
+    },
+    {
+        slug: 'fujicoin',
+        network: _extensions.fujicoin,
+        coinType: 75,
+    },
+    {
+        slug: 'flashcoin',
+        network: _extensions.flashcoin,
+        coinType: 120,
+    },
+    {
+        slug: 'firstcoin',
+        network: _extensions.firstcoin,
+        coinType: 167,
+    },
+    {
+        slug: 'feathercoin',
+        network: _extensions.feathercoin,
+        coinType: 8,
+    },
+    {
+        slug: 'game',
+        network: _extensions.game,
+        coinType: 101,
+    },
+    {
+        slug: 'gobyte',
+        network: _extensions.gobyte,
+        coinType: 176,
+    },
+    {
+        slug: 'gcr',
+        network: _extensions.gcr,
+        coinType: 79,
+    },
+    {
+        slug: 'gridcoin',
+        network: _extensions.gridcoin,
+        coinType: 84,
+    },
+    {
+        slug: 'groestlcoin',
+        network: _extensions.groestlcoin,
+        coinType: 17,
+    },
+    {
+        slug: 'groestlcointestnet',
+        network: _extensions.groestlcointestnet,
+        coinType: 1,
+    },
+    {
+        slug: 'helleniccoin',
+        network: _extensions.helleniccoin,
+        coinType: 168,
+    },
+    {
+        slug: 'hush',
+        network: _extensions.hush,
+        coinType: 197,
+    },
+    {
+        slug: 'hush3',
+        network: _extensions.hush3,
+        coinType: 197,
+    },
+    {
+        slug: 'insane',
+        network: _extensions.insane,
+        coinType: 68,
+    },
+    {
+        slug: 'iop',
+        network: _extensions.iop,
+        coinType: 66,
+    },
+    {
+        slug: 'starname',
+        network: _extensions.bitcoin,
+        coinType: 234,
+    },
+    {
+        slug: 'ixcoin',
+        network: _extensions.ixcoin,
+        coinType: 86,
+    },
+    {
+        slug: 'jumbucks',
+        network: _extensions.jumbucks,
+        coinType: 26,
+    },
+    {
+        slug: 'komodo',
+        network: _extensions.komodo,
+        coinType: 141,
+    },
+    {
+        slug: 'kobocoin',
+        network: _extensions.kobocoin,
+        coinType: 196,
+    },
+    {
+        slug: 'lbry',
+        network: _extensions.lbry,
+        coinType: 140,
+    },
+    {
+        slug: 'litecoincash',
+        network: _extensions.litecoincash,
+        coinType: 192,
+    },
+    {
+        slug: 'landcoin',
+        network: _extensions.landcoin,
+        coinType: 63,
+    },
+    {
+        slug: 'linx',
+        network: _extensions.linx,
+        coinType: 114,
+    },
+    {
+        slug: 'lkrcoin',
+        network: _extensions.lkrcoin,
+        coinType: 557,
+    },
+    {
+        slug: 'litecoin',
+        network: _extensions.litecoin,
+        coinType: 2,
+    },
+    {
+        slug: 'litecointestnet',
+        network: _extensions.litecointestnet,
+        coinType: 1,
+    },
+    {
+        slug: 'litecoinz',
+        network: _extensions.litecoinz,
+        coinType: 221,
+    },
+    {
+        slug: 'terra',
+        network: _extensions.bitcoin,
+        coinType: 330,
+    },
+    {
+        slug: 'lynx',
+        network: _extensions.lynx,
+        coinType: 191,
+    },
+    {
+        slug: 'maza',
+        network: _extensions.maza,
+        coinType: 13,
+    },
+    {
+        slug: 'megacoin',
+        network: _extensions.megacoin,
+        coinType: 217,
+    },
+    {
+        slug: 'mix',
+        network: _extensions.bitcoin,
+        coinType: 76,
+    },
+    {
+        slug: 'minexcoin',
+        network: _extensions.minexcoin,
+        coinType: 182,
+    },
+    {
+        slug: 'monacoin',
+        network: _extensions.monacoin,
+        coinType: 22,
+    },
+    {
+        slug: 'monkeyproject',
+        network: _extensions.monkeyproject,
+        coinType: 214,
+    },
+    {
+        slug: 'moac',
+        network: _extensions.bitcoin,
+        coinType: 314,
+    },
+    {
+        slug: 'musicoin',
+        network: _extensions.bitcoin,
+        coinType: 184,
+    },
+    {
+        slug: 'navcoin',
+        network: _extensions.navcoin,
+        coinType: 130,
+    },
+    {
+        slug: 'nebulas',
+        network: _extensions.bitcoin,
+        coinType: 2718,
+    },
+    {
+        slug: 'neblio',
+        network: _extensions.neblio,
+        coinType: 146,
+    },
+    {
+        slug: 'neoscoin',
+        network: _extensions.neoscoin,
+        coinType: 25,
+    },
+    {
+        slug: 'nix',
+        network: _extensions.nix,
+        coinType: 400,
+    },
+    {
+        slug: 'gulden',
+        network: _extensions.gulden,
+        coinType: 87,
+    },
+    {
+        slug: 'namecoin',
+        network: _extensions.namecoin,
+        coinType: 7,
+    },
+    {
+        slug: 'energi',
+        network: _extensions.energi,
+        coinType: 204,
+    },
+    {
+        slug: 'neurocoin',
+        network: _extensions.neurocoin,
+        coinType: 110,
+    },
+    {
+        slug: 'nushares',
+        network: _extensions.nushares,
+        coinType: 11,
+    },
+    {
+        slug: 'newyorkc',
+        network: _extensions.newyorkc,
+        coinType: 179,
+    },
+    {
+        slug: 'novacoin',
+        network: _extensions.novacoin,
+        coinType: 50,
+    },
+    {
+        slug: 'okcash',
+        network: _extensions.okcash,
+        coinType: 69,
+    },
+    {
+        slug: 'omnicore',
+        network: _extensions.omnicore,
+        coinType: 200,
+    },
+    {
+        slug: 'deeponion',
+        network: _extensions.deeponion,
+        coinType: 305,
+    },
+    {
+        slug: 'onixcoin',
+        network: _extensions.onixcoin,
+        coinType: 174,
+    },
+    {
+        slug: 'particl',
+        network: _extensions.particl,
+        coinType: 44,
+    },
+    {
+        slug: 'phore',
+        network: _extensions.phore,
+        coinType: 444,
+    },
+    {
+        slug: 'pinkcoin',
+        network: _extensions.pinkcoin,
+        coinType: 117,
+    },
+    {
+        slug: 'pirl',
+        network: _extensions.bitcoin,
+        coinType: 164,
+    },
+    {
+        slug: 'pivx',
+        network: _extensions.pivx,
+        coinType: 119,
+    },
+    {
+        slug: 'pivxtestnet',
+        network: _extensions.pivxtestnet,
+        coinType: 1,
+    },
+    {
+        slug: 'poa',
+        network: _extensions.bitcoin,
+        coinType: 178,
+    },
+    {
+        slug: 'poswcoin',
+        network: _extensions.poswcoin,
+        coinType: 47,
+    },
+    {
+        slug: 'potcoin',
+        network: _extensions.potcoin,
+        coinType: 81,
+    },
+    {
+        slug: 'peercoin',
+        network: _extensions.peercoin,
+        coinType: 6,
+    },
+    {
+        slug: 'projectcoin',
+        network: _extensions.projectcoin,
+        coinType: 533,
+    },
+    {
+        slug: 'pesobit',
+        network: _extensions.pesobit,
+        coinType: 62,
+    },
+    {
+        slug: 'putincoin',
+        network: _extensions.putincoin,
+        coinType: 122,
+    },
+    {
+        slug: 'rapids',
+        network: _extensions.rapids,
+        coinType: 320,
+    },
+    {
+        slug: 'ravencoin',
+        network: _extensions.ravencoin,
+        coinType: 175,
+    },
+    {
+        slug: 'rubycoin',
+        network: _extensions.rubycoin,
+        coinType: 16,
+    },
+    {
+        slug: 'reddcoin',
+        network: _extensions.reddcoin,
+        coinType: 4,
+    },
+    {
+        slug: 'ritocoin',
+        network: _extensions.ritocoin,
+        coinType: 19169,
+    },
+    {
+        slug: 'thorchain',
+        network: _extensions.bitcoin,
+        coinType: 931,
+    },
+    {
+        slug: 'revolutionvr',
+        network: _extensions.revolutionvr,
+        coinType: 129,
+    },
+    {
+        slug: 'safecoin',
+        network: _extensions.safecoin,
+        coinType: 19165,
+    },
+    {
+        slug: 'scribe',
+        network: _extensions.scribe,
+        coinType: 545,
+    },
+    {
+        slug: 'salus',
+        network: _extensions.salus,
+        coinType: 63,
+    },
+    {
+        slug: 'shadow',
+        network: _extensions.shadow,
+        coinType: 35,
+    },
+    {
+        slug: 'shadowtn',
+        network: _extensions.shadowtn,
+        coinType: 1,
+    },
+    {
+        slug: 'slimcoin',
+        network: _extensions.slimcoin,
+        coinType: 63,
+    },
+    {
+        slug: 'slimcointn',
+        network: _extensions.slimcointn,
+        coinType: 111,
+    },
+    {
+        slug: 'solarcoin',
+        network: _extensions.solarcoin,
+        coinType: 58,
+    },
+    {
+        slug: 'smileycoin',
+        network: _extensions.smileycoin,
+        coinType: 59,
+    },
+    {
+        slug: 'stashtn',
+        network: _extensions.stashtn,
+        coinType: 0xcafe,
+    },
+    {
+        slug: 'stratis',
+        network: _extensions.stratis,
+        coinType: 105,
+    },
+    {
+        slug: 'sugarchain',
+        network: _extensions.sugarchain,
+        coinType: 408,
+    },
+    {
+        slug: 'sugarchaintestnet',
+        network: _extensions.sugarchaintestnet,
+        coinType: 408,
+    },
+    {
+        slug: 'jingtum',
+        network: _extensions.bitcoin,
+        coinType: 315,
+    },
+    {
+        slug: 'stratistest',
+        network: _extensions.stratistest,
+        coinType: 105,
+    },
+    {
+        slug: 'syscoin',
+        network: _extensions.syscoin,
+        coinType: 57,
+    },
+    {
+        slug: 'hempcoin',
+        network: _extensions.hempcoin,
+        coinType: 113,
+    },
+    {
+        slug: 'thought',
+        network: _extensions.thought,
+        coinType: 1618,
+    },
+    {
+        slug: 'toa',
+        network: _extensions.toa,
+        coinType: 159,
+    },
+    {
+        slug: 'twins',
+        network: _extensions.twins,
+        coinType: 970,
+    },
+    {
+        slug: 'twinstestnet',
+        network: _extensions.twinstestnet,
+        coinType: 1,
+    },
+    {
+        slug: 'ultimatesecurecash',
+        network: _extensions.ultimatesecurecash,
+        coinType: 112,
+    },
+    {
+        slug: 'nubits',
+        network: _extensions.nubits,
+        coinType: 12,
+    },
+    {
+        slug: 'unobtanium',
+        network: _extensions.unobtanium,
+        coinType: 92,
+    },
+    {
+        slug: 'vpncoin',
+        network: _extensions.vpncoin,
+        coinType: 33,
+    },
+    {
+        slug: 'vechain',
+        network: _extensions.bitcoin,
+        coinType: 818,
+    },
+    {
+        slug: 'viacoin',
+        network: _extensions.viacoin,
+        coinType: 14,
+    },
+    {
+        slug: 'viacointestnet',
+        network: _extensions.viacointestnet,
+        coinType: 1,
+    },
+    {
+        slug: 'vivo',
+        network: _extensions.vivo,
+        coinType: 166,
+    },
+    {
+        slug: 'vertcoin',
+        network: _extensions.vertcoin,
+        coinType: 28,
+    },
+    {
+        slug: 'wagerr',
+        network: _extensions.wagerr,
+        coinType: 7825266,
+    },
+    {
+        slug: 'wincoin',
+        network: _extensions.wincoin,
+        coinType: 181,
+    },
+    {
+        slug: 'artax',
+        network: _extensions.artax,
+        coinType: 219,
+    },
+    {
+        slug: 'bitcoinplus',
+        network: _extensions.bitcoinplus,
+        coinType: 65,
+    },
+    {
+        slug: 'myriadcoin',
+        network: _extensions.myriadcoin,
+        coinType: 90,
+    },
+    {
+        slug: 'ripple',
+        network: _extensions.bitcoin,
+        coinType: 144,
+    },
+    {
+        slug: 'vcash',
+        network: _extensions.vcash,
+        coinType: 127,
+    },
+    {
+        slug: 'verge',
+        network: _extensions.verge,
+        coinType: 77,
+    },
+    {
+        slug: 'xuez',
+        network: _extensions.xuez,
+        coinType: 225,
+    },
+    {
+        slug: 'whitecoin',
+        network: _extensions.whitecoin,
+        coinType: 559,
+    },
+    {
+        slug: 'zcoin',
+        network: _extensions.zcoin,
+        coinType: 136,
+    },
+    {
+        slug: 'zoobc',
+        network: _extensions.zoobc,
+        coinType: 883,
+    },
+    {
+        slug: 'zclassic',
+        network: _extensions.zclassic,
+        coinType: 147,
+    },
+    {
+        slug: 'zcash',
+        network: _extensions.zcash,
+        coinType: 133,
+    },
+    {
+        slug: 'zencash',
+        network: _extensions.zencash,
+        coinType: 121,
+    },
+    {
+        slug: 'tron',
+        network: _extensions.bitcoin,
+        coinType: 195,
+    },
+    {
+        slug: 'ethereum',
+        network: _extensions.bitcoin,
+        coinType: 60,
+    },
+];
+class Networks {
+    static getNetworks() {
+        return _networks;
+    }
+    static getNetworkInfo(slug) {
+        return _networks.find((coin) => coin.slug === slug);
+    }
+}
+exports.default = Networks;

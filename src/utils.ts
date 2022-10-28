@@ -6,6 +6,15 @@ import { Language } from './wordlists';
 import sjcl from 'sjcl';
 import { bech32 } from 'bech32';
 
+export interface IDerivationPathParams {
+  purpose: number;
+  coinType?: number;
+  account?: number;
+  change?: number;
+  addressIndex?: number;
+  hardened?: boolean;
+}
+
 export const Cosmos = {
   bufferToPublic: function (pubBuf: Buffer, hrp = 'cosmos') {
     const AminoSecp256k1PubkeyPrefix = Buffer.from('EB5AE987', 'hex');
@@ -84,15 +93,6 @@ export const Ripple = {
 
 export const CasinoCoin = { ...Ripple };
 export const Jingtum = { ...Ripple };
-
-export interface IDerivationPathParams {
-  purpose: number;
-  coinType?: number;
-  account?: number;
-  change?: number;
-  addressIndex?: number;
-  hardened?: boolean;
-}
 
 export function getDerivationPath(params: IDerivationPathParams): string {
   const { purpose, coinType, account, change, addressIndex, hardened } = params;

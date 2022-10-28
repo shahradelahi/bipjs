@@ -1,6 +1,14 @@
 import { Buffer } from 'buffer';
 import { Language } from './wordlists';
 import sjcl from 'sjcl';
+export interface IDerivationPathParams {
+    purpose: number;
+    coinType?: number;
+    account?: number;
+    change?: number;
+    addressIndex?: number;
+    hardened?: boolean;
+}
 export declare const Cosmos: {
     bufferToPublic: (pubBuf: Buffer, hrp?: string) => string;
     bufferToAddress: (pubBuf: Buffer, hrp?: string) => string;
@@ -30,14 +38,6 @@ export declare const Jingtum: {
     convertAddress: (address: string) => string;
     convertPrivate: (privateKey: string) => string;
 };
-export interface IDerivationPathParams {
-    purpose: number;
-    coinType?: number;
-    account?: number;
-    change?: number;
-    addressIndex?: number;
-    hardened?: boolean;
-}
 export declare function getDerivationPath(params: IDerivationPathParams): string;
 export declare function stripHexPrefix(address: string): string;
 export declare function uint8ToHex(arr: Uint8Array): string;
