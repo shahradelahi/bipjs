@@ -1,12 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const ethUtil = require("ethereumjs-util");
-const ethereumjs_util_1 = require("ethereumjs-util");
 const bitcoin = require("bitcoinjs-lib");
 const networks_1 = require("./networks");
 const utils_1 = require("./utils");
 const ethers_1 = require("ethers");
 const buffer = require("buffer");
+const account_1 = require("./account");
 class HDWallet {
     constructor(ECNode) {
         this._ecnode = ECNode;
@@ -64,30 +63,32 @@ class HDWallet {
         const privateKeyBuffer = buffer.Buffer.from((0, utils_1.stripHexPrefix)(keyPair.privateKey), 'hex');
         const publicKeyBuffer = buffer.Buffer.from((0, utils_1.stripHexPrefix)(keyPair.publicKey), 'hex');
         let prebuiltAccount = {
-            privateKey: ethUtil.addHexPrefix((0, ethereumjs_util_1.bufferToHex)(privateKeyBuffer)),
-            publicKey: ethUtil.addHexPrefix((0, ethereumjs_util_1.bufferToHex)(publicKeyBuffer)),
+            privateKey: (0, utils_1.addHexPrefix)((0, utils_1.bufferToHex)(privateKeyBuffer)),
+            publicKey: (0, utils_1.addHexPrefix)((0, utils_1.bufferToHex)(publicKeyBuffer)),
+            ECNode: this.getECNode(),
+            network: networkSlug,
             address: '',
-            path: path,
+            path,
         };
         if (networkInfo.slug === 'ethereum') {
             const ethPubkey = ethers_1.ethers.utils.computePublicKey(keyPair.publicKey, true);
             const addressBuffer = buffer.Buffer.from(ethers_1.ethers.utils.computeAddress(ethPubkey));
             const hexAddress = addressBuffer.toString();
             const checksumAddress = ethers_1.ethers.utils.getAddress(hexAddress);
-            return Object.assign(Object.assign({}, prebuiltAccount), { address: ethUtil.addHexPrefix(checksumAddress) });
+            return new account_1.default(Object.assign(Object.assign({}, prebuiltAccount), { address: (0, utils_1.addHexPrefix)(checksumAddress) }));
         }
         if (networkInfo.slug === 'tron') {
             const ethPubkey = ethers_1.ethers.utils.computePublicKey(keyPair.publicKey, true);
             const ethAddress = ethers_1.ethers.utils.computeAddress(ethPubkey);
             const addressBuffer = buffer.Buffer.from(ethAddress.slice(2), 'hex');
-            return Object.assign(Object.assign({}, prebuiltAccount), { address: bitcoin.address.toBase58Check(addressBuffer, 0x41) });
+            return new account_1.default(Object.assign(Object.assign({}, prebuiltAccount), { address: bitcoin.address.toBase58Check(addressBuffer, 0x41) }));
         }
         /** Bitcoin and other similar coins */
         const Payment = {
             pubkey: publicKeyBuffer,
             network: networkInfo.network,
         };
-        return Object.assign(Object.assign({}, prebuiltAccount), { address: bitcoin.payments.p2pkh(Payment).address || '' });
+        return new account_1.default(Object.assign(Object.assign({}, prebuiltAccount), { address: bitcoin.payments.p2pkh(Payment).address || '' }));
     }
 }
 exports.default = HDWallet;

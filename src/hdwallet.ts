@@ -1,11 +1,10 @@
-import * as ethUtil from 'ethereumjs-util';
-import { bufferToHex } from 'ethereumjs-util';
 import * as bitcoin from 'bitcoinjs-lib';
 import Networks, { NetworkSlug } from './networks';
-import { getDerivationPath, stripHexPrefix } from './utils';
+import { addHexPrefix, bufferToHex, getDerivationPath, stripHexPrefix } from './utils';
 import { ethers } from 'ethers';
 import * as buffer from 'buffer';
 import { Buffer } from 'buffer';
+import Account from './account';
 
 export interface IAccountOpts {
   purpose?: number;
@@ -13,12 +12,6 @@ export interface IAccountOpts {
   account?: number;
   useHardenedAddresses?: boolean;
   derivationPath?: string;
-}
-export interface Account {
-  readonly privateKey: string;
-  readonly publicKey: string;
-  readonly address: string;
-  readonly path: string;
 }
 
 export default class HDWallet {
@@ -96,10 +89,12 @@ export default class HDWallet {
     const publicKeyBuffer = buffer.Buffer.from(stripHexPrefix(keyPair.publicKey), 'hex');
 
     let prebuiltAccount = {
-      privateKey: ethUtil.addHexPrefix(bufferToHex(privateKeyBuffer)),
-      publicKey: ethUtil.addHexPrefix(bufferToHex(publicKeyBuffer)),
+      privateKey: addHexPrefix(bufferToHex(privateKeyBuffer)),
+      publicKey: addHexPrefix(bufferToHex(publicKeyBuffer)),
+      ECNode: this.getECNode(),
+      network: networkSlug,
       address: '',
-      path: path,
+      path,
     };
 
     if (networkInfo.slug === 'ethereum') {
@@ -107,14 +102,14 @@ export default class HDWallet {
       const addressBuffer = buffer.Buffer.from(ethers.utils.computeAddress(ethPubkey));
       const hexAddress = addressBuffer.toString();
       const checksumAddress = ethers.utils.getAddress(hexAddress);
-      return { ...prebuiltAccount, address: ethUtil.addHexPrefix(checksumAddress) };
+      return new Account({ ...prebuiltAccount, address: addHexPrefix(checksumAddress) });
     }
 
     if (networkInfo.slug === 'tron') {
       const ethPubkey = ethers.utils.computePublicKey(keyPair.publicKey, true);
       const ethAddress = ethers.utils.computeAddress(ethPubkey);
       const addressBuffer = buffer.Buffer.from(ethAddress.slice(2), 'hex');
-      return { ...prebuiltAccount, address: bitcoin.address.toBase58Check(addressBuffer, 0x41) };
+      return new Account({ ...prebuiltAccount, address: bitcoin.address.toBase58Check(addressBuffer, 0x41) });
     }
 
     /** Bitcoin and other similar coins */
@@ -124,6 +119,6 @@ export default class HDWallet {
       network: networkInfo.network as any,
     };
 
-    return { ...prebuiltAccount, address: bitcoin.payments.p2pkh(Payment).address || '' };
+    return new Account({ ...prebuiltAccount, address: bitcoin.payments.p2pkh(Payment).address || '' });
   }
 }

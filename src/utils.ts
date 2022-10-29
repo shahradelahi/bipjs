@@ -182,3 +182,11 @@ export function binaryStringToHexString(binary: string): string {
   }
   return hex;
 }
+
+export function addHexPrefix(str: string): string {
+  return str.slice(0, 2) === '0x' ? str : '0x' + str;
+}
+
+export function bufferToHex(buffer: Buffer): string {
+  return '0x' + buffer.toString('hex');
+}

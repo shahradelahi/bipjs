@@ -9,7 +9,6 @@ const wordlist_korean_1 = require("./wordlists/wordlist_korean");
 const wordlist_french_1 = require("./wordlists/wordlist_french");
 const wordlist_italian_1 = require("./wordlists/wordlist_italian");
 const _wordLists = {
-    english: wordlist_english_1.default,
     japanese: wordlist_japanese_1.default,
     spanish: wordlist_spanish_1.default,
     chinese_simplified: wordlist_chinese_simplified_1.default,
@@ -17,6 +16,7 @@ const _wordLists = {
     korean: wordlist_korean_1.default,
     french: wordlist_french_1.default,
     italian: wordlist_italian_1.default,
+    english: wordlist_english_1.default,
 };
 class WordLists {
     static get(locale = 'english') {

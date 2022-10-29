@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { Buffer } from 'buffer';
 import { Language } from './wordlists';
 import sjcl from 'sjcl';
@@ -49,3 +50,5 @@ export declare function byteArrayToWordArray(data: Uint8Array): sjcl.BitArray;
 export declare function byteArrayToBinaryString(data: Uint8Array): string;
 export declare function hexStringToBinaryString(hexString: string): string;
 export declare function binaryStringToHexString(binary: string): string;
+export declare function addHexPrefix(str: string): string;
+export declare function bufferToHex(buffer: Buffer): string;

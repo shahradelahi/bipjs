@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.binaryStringToHexString = exports.hexStringToBinaryString = exports.byteArrayToBinaryString = exports.byteArrayToWordArray = exports.normalizeString = exports.joinWords = exports.zFill = exports.splitWords = exports.uint8ToHex = exports.stripHexPrefix = exports.getDerivationPath = exports.Jingtum = exports.CasinoCoin = exports.Ripple = exports.XWC = exports.EOS = exports.FIO = exports.Cosmos = void 0;
+exports.bufferToHex = exports.addHexPrefix = exports.binaryStringToHexString = exports.hexStringToBinaryString = exports.byteArrayToBinaryString = exports.byteArrayToWordArray = exports.normalizeString = exports.joinWords = exports.zFill = exports.splitWords = exports.uint8ToHex = exports.stripHexPrefix = exports.getDerivationPath = exports.Jingtum = exports.CasinoCoin = exports.Ripple = exports.XWC = exports.EOS = exports.FIO = exports.Cosmos = void 0;
 const base_x_1 = require("base-x");
 const buffer_1 = require("buffer");
 const crypto_1 = require("crypto");
@@ -161,3 +161,11 @@ function binaryStringToHexString(binary) {
     return hex;
 }
 exports.binaryStringToHexString = binaryStringToHexString;
+function addHexPrefix(str) {
+    return str.slice(0, 2) === '0x' ? str : '0x' + str;
+}
+exports.addHexPrefix = addHexPrefix;
+function bufferToHex(buffer) {
+    return '0x' + buffer.toString('hex');
+}
+exports.bufferToHex = bufferToHex;

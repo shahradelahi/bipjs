@@ -2,10 +2,6 @@ import {expect, test} from "@jest/globals";
 import {randomInt} from "crypto";
 import WordLists from "../src/wordlists";
 
-test('Hello World!', () => {
-   expect('Hello World!').toBe('Hello World!');
-});
-
 test('Get a English Wordlist', () => {
    const wordlist = WordLists.get('english');
 

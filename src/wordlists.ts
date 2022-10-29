@@ -20,7 +20,6 @@ export type Language =
   | 'italian';
 
 const _wordLists: IWordlist = {
-  english: wordlist_english,
   japanese: wordlist_japanese,
   spanish: wordlist_spanish,
   chinese_simplified: wordlist_chinese_simplified,
@@ -28,6 +27,7 @@ const _wordLists: IWordlist = {
   korean: wordlist_korean,
   french: wordlist_french,
   italian: wordlist_italian,
+  english: wordlist_english,
 };
 
 export default class WordLists {
