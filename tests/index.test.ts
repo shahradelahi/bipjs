@@ -1,6 +1,6 @@
-import {expect, test} from "@jest/globals";
-import {Buffer} from "buffer";
-import {entropyToMnemonic, generateMnemonic, mnemonicToEntropy, mnemonicToLocale, validateMnemonic} from "../src";
+import { expect, test } from "@jest/globals";
+import { Buffer } from "buffer";
+import { entropyToMnemonic, generateMnemonic, mnemonicToEntropy, mnemonicToLocale, validateMnemonic } from "../src";
 
 test('Generate a English Mnemonic', () => {
    const englishMnemonic = generateMnemonic(128, "english");

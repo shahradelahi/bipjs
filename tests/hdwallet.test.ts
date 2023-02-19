@@ -1,5 +1,5 @@
-import {expect, test} from "@jest/globals";
-import {generateMnemonic} from "../src";
+import { expect, test } from "@jest/globals";
+import { generateMnemonic } from "../src";
 import HDWallet from "../src/hdwallet";
 
 test('Generate a Bitcoin Wallet', () => {
@@ -17,7 +17,7 @@ test('Generate a Bitcoin Wallet', () => {
       mnemonic,
       address: account.getAddress(),
       xprv: wallet.getExtendedKey(),
-      xpub: wallet.getExtendedPublicKey(),
+      xpub: wallet.getExtendedPublicKey()
    });
 
 });
@@ -28,14 +28,14 @@ test('Generate a Ethereum Wallet', () => {
    const wallet = HDWallet.fromMnemonic(mnemonic);
 
    const path = "m/44'/60'/0'/0/0";
-   const account = wallet.getAccount("ethereum", {derivationPath: path});
+   const account = wallet.getAccount("ethereum", { derivationPath: path });
 
    expect(account.getAddress().startsWith("0x")).toBe(true);
    expect(account.getAddress().length).toBe(42);
 
    console.table({
       mnemonic,
-      account: account.getAddress(),
+      account: account.getAddress()
    });
 
 });
@@ -45,7 +45,7 @@ test('Generate a Tron Wallet', () => {
    const mnemonic = generateMnemonic(256);
    const wallet = HDWallet.fromMnemonic(mnemonic);
 
-   const account = wallet.getAccount("tron", {index: 20});
+   const account = wallet.getAccount("tron", { index: 20 });
 
    expect(account.getAddress().startsWith("T")).toBe(true);
    expect(account.getAddress().length).toBe(34);
@@ -53,7 +53,7 @@ test('Generate a Tron Wallet', () => {
    expect(account.getPrivateKey().startsWith("0x")).toBe(true);
    expect(account.getPublicKey().startsWith("0x")).toBe(true);
 
-   console.table({mnemonic, ...account});
+   console.table({ mnemonic, ...account });
 
 });
 

@@ -1,5 +1,5 @@
-import {expect, test} from "@jest/globals";
-import {randomInt} from "crypto";
+import { expect, test } from "@jest/globals";
+import { randomInt } from "crypto";
 import WordLists from "../src/wordlists";
 
 test('Get a English Wordlist', () => {
